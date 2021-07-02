@@ -1,7 +1,5 @@
 # Nycity-trees
 
-# Nycity-trees
-
 ### Set-up
 
 environment
