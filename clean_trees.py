@@ -2,19 +2,18 @@
 import numpy as np
 
 directory = r"C:\Users\Amaury\Documents\Data_Science_BECODE\Projects\Python\GNT-Arai-2.31\content\4.machine_learning\0.data_preprocessing\Nycity-trees\2015_Street_Tree_Census_-_Tree_Data.csv"
-df_data_100000_ori = pd.read_csv(directory, sep=',').iloc[0:100,:]
+df_data_100000_ori = pd.read_csv(directory, sep=',').iloc[0:100000,:]
 df_data_100000 = df_data_100000_ori.copy()
+print(df_data_100000.shape)
 #print(df_data_100000)
 #print(df_data_100000.columns)
 # print(df_data_100000.shape)
-# print(df_data_100000.shape())
-# print(df_data_100000.info)
-print(df_data_100000.dtypes)
+print(df_data_100000.info)
+# print(df_data_100000.dtypes)
 #df_data_100000.head()
 
-def remove_empty_rows(self, df):
+def remove_empty_rows(df):
     return df.dropna(how='all')
-
 
 def drop_duplicates(column):
     df_data_100000.drop_duplicates(subset=column, keep=False)
@@ -50,7 +49,7 @@ def change_no_yes_to_false_true(columns_list):
         df_data_100000[column] = df_data_100000[column].replace(to_replace="Yes", value=True)
 
 def change_to_category(column):
-    df_data_100000[column] = df_data_100000[column].astype("str")
+    df_data_100000[column] = df_data_100000[column].astype("category")
 # print(df_data_100000)
 # print(df_data_100000.isnull().any())
 # print(df_data_100000.isna().sum())
@@ -71,6 +70,8 @@ def change_to_category(column):
 # first drop duplicates in the tree_id column
 
 df_data_100000 = df_data_100000.drop(["state", "borocode", "nta", "problems"], axis = 1)
+
+remove_empty_rows(df_data_100000)
 
 drop_duplicates("tree_id")
 
@@ -102,6 +103,10 @@ change_to_obj(columns_to_string)
 columns_to_int = ["council district", "census tract", "bin", "bbl"]
 change_to_int(columns_to_int)
 
+# change into category type
+columns_to_category = ["curb_loc", "status", "guards", "sidewalk"]
+change_to_category(columns_to_category)
+
 # check types
 print(df_data_100000.dtypes)
 
@@ -114,7 +119,7 @@ df_data_100000[columns_to_be_lowercased] = df_data_100000[columns_to_be_lowercas
 print("----- columns with missing values = True -------->")
 print(df_data_100000.isnull().any())
 print("----------- missing values check END ------------>")
-
+print(df_data_100000.shape)
 # check types
 # print(df_data_100000.dtypes)
 
